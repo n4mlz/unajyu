@@ -1,5 +1,6 @@
 import os
 import random
+
 import requests
 
 CATEGORIES = {
@@ -78,7 +79,10 @@ def choice_venues():
 
         for item in activities["items"]:
             venue = item["checkin"]["venue"]
-            if "city" not in venue["location"] or venue["location"]["city"] != "つくば市":
+            if (
+                "city" not in venue["location"]
+                or venue["location"]["city"] != "つくば市"
+            ):
                 continue
 
             categories = [category["name"] for category in venue["categories"]]
@@ -93,7 +97,7 @@ def choice_venues():
     return (random.choices(venues, weights=weights, k=5), bad_venues)
 
 
-from discord import Intents, Client, Interaction
+from discord import Client, Intents, Interaction
 from discord.app_commands import CommandTree
 
 
